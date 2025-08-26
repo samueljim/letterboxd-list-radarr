@@ -58,6 +58,7 @@ export const getListPaginated = async (
     listSlug: string,
     page: number
 ): Promise<LetterboxdListPage> => {
+    console.log(`Fetching page: ${LETTERBOXD_ORIGIN}${listSlug}page/${page}/`);
     return await getKanpai<LetterboxdListPage>(
         `${LETTERBOXD_ORIGIN}${listSlug}page/${page}/`,
         {
@@ -69,7 +70,7 @@ export const getListPaginated = async (
             posters: [
                 ".poster-list .posteritem",
                 {
-                    slug: [".react-component", "[data-item-link]"],
+                    slug: ["a[href] [href]"],
                     title: [".image", "[alt]"],
                 },
             ],
