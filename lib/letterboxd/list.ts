@@ -58,7 +58,6 @@ export const getListPaginated = async (
     listSlug: string,
     page: number
 ): Promise<LetterboxdListPage> => {
-    console.log(`Fetching page: ${LETTERBOXD_ORIGIN}${listSlug}page/${page}/`);
     return await getKanpai<LetterboxdListPage>(
         `${LETTERBOXD_ORIGIN}${listSlug}page/${page}/`,
         {
@@ -68,10 +67,10 @@ export const getListPaginated = async (
                 getFirstMatch(LETTERBOXD_NEXT_PAGE_REGEX),
             ],
             posters: [
-                ".poster-list .posteritem",
+                "[data-component-class=\"globals.comps.LazyPoster\"]",
                 {
-                    slug: ["a[href] [href]"],
-                    title: [".image", "[alt]"],
+                    slug: ["$", "[data-target-link]"],
+                    title: ["$", "[data-item-name]"],
                 },
             ],
         }
